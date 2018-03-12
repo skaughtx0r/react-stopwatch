@@ -1,0 +1,39 @@
+.Stopwatch {
+  font-family: "DSEG7-Classic";
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.Stopwatch .card {
+  display: flex;
+}
+
+.Stopwatch .details {
+  display: flex;
+  flex-direction: column;
+}
+
+.Stopwatch .content {
+  flex: 1 0 auto;
+}
+
+.Stopwatch .cover {
+  width: 151;
+  height: 151;
+}
+
+.Stopwatch .controls {
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+  padding-bottom: 4px;
+}
+
+.Stopwatch .time {
+  font-size: 58px;
+}
+
+.Stopwatch .delete {
+  min-width: 32px;
+}

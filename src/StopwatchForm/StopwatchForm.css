@@ -1,0 +1,24 @@
+.StopwatchForm {
+  display: inline-block;
+  margin-top: 10px;
+  width: 534px;
+}
+
+.StopwatchForm .card {
+  display: flex;
+}
+
+.StopwatchForm .details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.StopwatchForm .content {
+  flex: 1 0 auto;
+}
+
+.StopwatchForm .controls {
+  width: 100%;
+  margin-top: 10px;
+}
