@@ -20,8 +20,6 @@ export class Stopwatch extends Component {
 
   state = {
     startTime: 0,
-    laps: [],
-    lastLap: 0,
     currentTime: 0,
     running: false
   };
@@ -34,7 +32,6 @@ export class Stopwatch extends Component {
     this.start = this.start.bind(this);
     this.tick = this.tick.bind(this);
     this.stop = this.stop.bind(this);
-    this.lap = this.lap.bind(this);
     this.reset = this.reset.bind(this);
     this.onDelete = this.onDelete.bind(this);
   }
@@ -78,36 +75,33 @@ export class Stopwatch extends Component {
 
   start() {
     this.setState({
-      startTime: Date.now(),
+      startTime: this.state.startTime ? this.state.startTime : Date.now(),
       running: true,
-      currentLap: 0
     });
     this._watchInterval = setInterval(this.tick.bind(this));
   }
 
   tick() {
     let time = this.state.startTime;
-    if(this.state.laps.length > 0) {
-      time = this.state.laps[this.state.currentLap - 1];
+    const nextTime = Date.now() - time;
+    if(!this.state.running) {
+      time = this.state.startTime + (nextTime - this.state.currentTime)
+      this.setState({
+        startTime: time,
+        currentTime: this.state.currentTime
+      })
     }
-    this.setState({
-      currentTime: Date.now() - time
-    });
+    else {
+      this.setState({
+        currentTime: nextTime
+      });
+    }
   }
 
   stop() {
-    clearInterval(this._watchInterval);
-    this._watchInterval = null;
-    this.setState({
-      running: false
-    });
-  }
-
-  lap() {
     
     this.setState({
-      currentLap: this.state.currentLap++,
-      laps: this.state.laps.push(Date.now())
+      running: false
     });
   }
 
@@ -116,9 +110,9 @@ export class Stopwatch extends Component {
     this.setState({
       currentTime: 0,
       startTime: 0,
-      currentLap: 0,
-      laps: []
     });
+    clearInterval(this._watchInterval);
+    this._watchInterval = null;
   }
 
   onDelete() {
